@@ -28,3 +28,13 @@ export const deleteBasket = () => {
     type: DELETE_BASKET
   }
 }
+
+export const ADD_NEW_ITEM = 'ADD_NEW_ITEM'
+export const addNewItem = (name, id, groupId) => {
+  return {
+    type: ADD_NEW_ITEM,
+    name: name,
+    id: id,
+    groupId: groupId
+  }
+}

@@ -1,9 +1,9 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import { createStackNavigator } from 'react-navigation'
+import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
 import ItemAdderContainer from '../containers/itemAdderContainer'
 import BasketContainer from '../containers/basketContainer'
-import Basket from '../components/basket'
+import NewItemAdderContainer from '../containers/newItemAdderContainer'
 
 class BasketScreen extends React.Component {
   static navigationOptions = {
@@ -19,25 +19,45 @@ class BasketScreen extends React.Component {
   }
 }
 
-class AddItemsScreen extends React.Component {
+class AddItemsToBasketScreen extends React.Component {
   static navigationOptions = {
-    title: 'Add items'
+    title: 'Add items to basket'
   }
 
   render() {
     return (
-      <View>
-        <ItemAdderContainer />
-      </View>
+      <ItemAdderContainer />
     )
   }
 }
 
-export default createStackNavigator({
+class AddItemScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Add item',
+    drawerLabel: 'Add item'
+  }
+
+  render() {
+    return (
+      <NewItemAdderContainer />
+    )
+  }
+}
+
+const homeStackNavigator = createStackNavigator({
   BasketScreen: {
     screen: BasketScreen
   },
   AddItems: {
-    screen: AddItemsScreen
+    screen: AddItemsToBasketScreen
+  },
+})
+
+export default createDrawerNavigator({
+  Home: {
+    screen: homeStackNavigator,
+  },
+  Add: {
+    screen: AddItemScreen,
   },
 })

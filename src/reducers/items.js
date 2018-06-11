@@ -1,3 +1,5 @@
+import {ADD_NEW_ITEM, addNewItem} from '../actions'
+
 const defaultState = [
   {
     name: 'Jauhenliha',
@@ -198,6 +200,15 @@ const defaultState = [
 
 export default items = (state = defaultState, action) => {
   switch (action.type) {
+    case ADD_NEW_ITEM:
+      return [
+        ...state,
+        {
+          name: action.name,
+          id: action.id,
+          groupId: action.groupId
+        }
+      ]
     default:
       return state
   }
