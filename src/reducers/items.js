@@ -1,4 +1,4 @@
-import {ADD_NEW_ITEM, REMOVE_ITEM} from '../actions'
+import {ADD_NEW_ITEM, REMOVE_ITEM, DELETE_GROUP} from '../actions'
 
 const defaultState = [
   {
@@ -211,6 +211,8 @@ export default items = (state = defaultState, action) => {
       ]
     case REMOVE_ITEM:
       return state.filter(item => item.id !== action.id)
+    case DELETE_GROUP:
+      return state.filter(item => item.groupId !== action.id)
     default:
       return state
   }

@@ -1,3 +1,5 @@
+import { ADD_GROUP, DELETE_GROUP } from '../actions'
+
 const defaultState = [
   { 
     name: 'Juomat',
@@ -39,6 +41,16 @@ const defaultState = [
 
 export default groups = (state = defaultState, action) => {
   switch (action.type) {
+    case ADD_GROUP:
+      return [
+        ...state,
+        {
+          name: action.name,
+          id: state.length > 0 ? state[state.length - 1].id + 1 : 1
+        }
+      ]
+    case DELETE_GROUP:
+      return state.filter(item => item.id !== action.id)
     default:
       return state
   }

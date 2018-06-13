@@ -46,3 +46,19 @@ export const removeItem = id => {
     id: id
   }
 }
+
+export const ADD_GROUP = 'ADD_GROUP'
+export const addGroup = name => {
+  return {
+    type: ADD_GROUP,
+    name: name
+  }
+}
+
+export const DELETE_GROUP = 'DELETE_GROUP'
+export const deleteGroup = id => {
+  return {
+    type: DELETE_GROUP,
+    id: id
+  }
+}
