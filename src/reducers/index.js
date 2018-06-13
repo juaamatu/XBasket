@@ -3,8 +3,8 @@ import groups from './groups'
 import items from './items'
 import basket from './basket'
 
-export default combineReducers({
+export default {
   groups,
   items,
   basket
-})
+}
