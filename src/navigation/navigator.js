@@ -4,6 +4,7 @@ import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
 import ItemAdderContainer from '../containers/itemAdderContainer'
 import BasketContainer from '../containers/basketContainer'
 import NewItemAdderContainer from '../containers/newItemAdderContainer'
+import ItemRemoverContainer from '../containers/itemRemoverContainer'
 
 class BasketScreen extends React.Component {
   static navigationOptions = {
@@ -44,6 +45,19 @@ class AddItemScreen extends React.Component {
   }
 }
 
+class RemoveItemsScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Remove item',
+    drawerLabel: 'Remove item'
+  }
+
+  render() {
+    return (
+      <ItemRemoverContainer />
+    )
+  }
+}
+
 const homeStackNavigator = createStackNavigator({
   BasketScreen: {
     screen: BasketScreen
@@ -53,11 +67,26 @@ const homeStackNavigator = createStackNavigator({
   },
 })
 
+const addStackNavigator = createStackNavigator({
+  AddScreen: {
+    screen: AddItemScreen
+  },
+})
+
+const removeStackNavigator = createStackNavigator({
+  RemoveScreen: {
+    screen: RemoveItemsScreen
+  },
+})
+
 export default createDrawerNavigator({
   Home: {
     screen: homeStackNavigator,
   },
   Add: {
-    screen: AddItemScreen,
+    screen: addStackNavigator,
   },
+  Remove: {
+    screen: removeStackNavigator
+  }
 })

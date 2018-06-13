@@ -22,7 +22,7 @@ export default class NewItemAdder extends React.Component {
     }, 2000)
 
     let id = this.props.items.length > 0 ? this.props.items[this.props.items.length - 1].id + 1 : 1
-    this.props.addNewItem(name, id, this.state.selectedGroupId)
+    this.props.itemPressed(name, id, this.state.selectedGroupId)
   }
 
   textInputFocus = () => {

@@ -14,7 +14,7 @@ export default class ItemGroupList extends React.Component {
     }).sort((a, b) => {
       return isNaN(a.name) === isNaN(b.name) ? a.name.localeCompare(b.name) : (isNaN(a.name) ? -1 : 1);
     })
-
+    //console.log(isItemToggled)
     return(
       <View>
         <FlatList
@@ -27,9 +27,15 @@ export default class ItemGroupList extends React.Component {
               </View>
               <ItemList 
                 items={item.items}
+                groupId={item.id}
                 basket={this.props.basket}
-                itemAdded={this.props.itemAdded}
-                itemRemoved={this.props.itemRemoved}           
+                itemPressed={this.props.itemPressed}
+                toggleableItems={this.props.toggleableItems}
+                isItemToggled={this.props.isItemToggled}
+                itemContainerStyle={this.props.itemContainerStyle}
+                toggledContainerStyle={this.props.toggledContainerStyle}
+                itemTextStyle={this.props.itemTextStyle}
+                toggledTextStyle={this.props.toggledTextStyle}
               />
             </View>
           )}

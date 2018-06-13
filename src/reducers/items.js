@@ -1,4 +1,4 @@
-import {ADD_NEW_ITEM, addNewItem} from '../actions'
+import {ADD_NEW_ITEM, REMOVE_ITEM} from '../actions'
 
 const defaultState = [
   {
@@ -209,6 +209,8 @@ export default items = (state = defaultState, action) => {
           groupId: action.groupId
         }
       ]
+    case REMOVE_ITEM:
+      return state.filter(item => item.id !== action.id)
     default:
       return state
   }

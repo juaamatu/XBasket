@@ -38,3 +38,11 @@ export const addNewItem = (name, id, groupId) => {
     groupId: groupId
   }
 }
+
+export const REMOVE_ITEM = 'REMOVE_ITEM'
+export const removeItem = id => {
+  return {
+    type: REMOVE_ITEM,
+    id: id
+  }
+}

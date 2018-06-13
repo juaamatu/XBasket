@@ -3,19 +3,23 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 export default class Item extends React.Component {
   itemPressed = id => {    
-    if (this.props.selected) {
-      this.props.itemRemoved(id)
-    } else {
-      this.props.itemAdded(id)
+    pressedEventData = {
+      name: this.props.name,
+      id: this.props.id,
+      groupId: this.props.groupId,
+      selected: this.props.isToggled
     }
+    this.props.itemPressed(pressedEventData)
   }
 
   render() {
+    let toggled = this.props.toggleable ? this.props.isToggled : false
+
     return (
-      <View style={[styles.containerSelected, this.props.selected ? styles.containerSelected : styles.containerUnselected]}>
-        <TouchableOpacity onPress={ id => this.itemPressed(this.props.id) }>
+      <View style={toggled ? this.props.toggledContainerStyle : this.props.itemContainerStyle}>
+        <TouchableOpacity onPress={ () => this.itemPressed() }>
           <View>
-            <Text style={styles.itemText}>{this.props.name}</Text>
+            <Text style={toggled ? this.props.toggledTextStyle : this.props.itemTextStyle}>{this.props.name}</Text>
           </View>
         </TouchableOpacity>
       </View>
