@@ -8,8 +8,8 @@ const groupDeleted = (dispatch, groupPressedEventData) => {
     'Delete group',
     `Are you sure you want to delete ${groupPressedEventData.name} and it's ${groupPressedEventData.items.length} items?`,
     [
-      {text: 'Yes!', onPress: () => { dispatch(deleteGroup(groupPressedEventData.id)) }},
       {text: 'No!', onPress: () => {}},
+      {text: 'Yes!', onPress: () => { dispatch(deleteGroup(groupPressedEventData.id)) }},
     ],
     { cancelable: true }
   )

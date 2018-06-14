@@ -1,16 +1,17 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
+import { createStackNavigator, createDrawerNavigator, DrawerActions } from 'react-navigation'
+import DrawerContent from './drawerContent'
 import ItemAdderContainer from '../containers/itemAdderContainer'
 import BasketContainer from '../containers/basketContainer'
-import NewItemAdderContainer from '../containers/newItemAdderContainer'
-import ItemRemoverContainer from '../containers/itemRemoverContainer'
-import GroupRemoverContainer from '../containers/groupRemoverContainer'
-import GroupAddContainer from '../containers/groupAddContainer'
+import ItemCreatorContainer from '../containers/itemCreatorContainer'
+import ItemDeleteContainer from '../containers/itemDeleteContainer'
+import GroupDeleteContainer from '../containers/groupDeleteContainer'
+import GroupCreatorContainer from '../containers/groupCreatorContainer'
 
 class BasketScreen extends React.Component {
   static navigationOptions = {
-      title: "Basket"
+      title: "Basket",
   }
 
   render() {
@@ -34,113 +35,108 @@ class AddItemsToBasketScreen extends React.Component {
   }
 }
 
-class AddItemScreen extends React.Component {
+class CreateItemScreen extends React.Component {
   static navigationOptions = {
-    title: 'Add item',
+    title: 'Create item',
   }
 
   render() {
     return (
-      <NewItemAdderContainer />
+      <ItemCreatorContainer />
     )
   }
 }
 
-class RemoveItemsScreen extends React.Component {
+class DeleteItemScreen extends React.Component {
   static navigationOptions = {
-    title: 'Remove item',
+    title: 'Delete item',
   }
 
   render() {
     return (
-      <ItemRemoverContainer />
+      <ItemDeleteContainer />
     )
   }
 }
 
-class AddGroupsScreen extends React.Component {
+class CreateGroupScreen extends React.Component {
   static navigationOptions = {
-    title: 'Add group',
+    title: 'Create group',
   }
 
   render() {
     return (
-      <GroupAddContainer />
+      <GroupCreatorContainer />
     )
   }
 }
 
-class RemoveGroupsScreen extends React.Component {
+class DeleteGroupScreen extends React.Component {
   static navigationOptions = {
-    title: 'Remove group',
+    title: 'Delete group',
   }
 
   render() {
     return (
-      <GroupRemoverContainer />
+      <GroupDeleteContainer />
     )
   }
 }
 
-const homeStackNavigator = createStackNavigator({
-  BasketScreen: {
-    screen: BasketScreen
+const DrawerNavigator = createDrawerNavigator({
+  Home: {
+    screen: BasketScreen,
+  }
+  }, { 
+  contentComponent: DrawerContent,
+})
+
+class MainDrawerNavigator extends DrawerNavigator {
+
+  constructor(props) {
+    super(props)
+    this.navigation = this.props.navigation
+  }
+
+  static navigationOptions = ({ navigation, screenProps }) => ({ 
+    title: 'Basket',
+    headerLeft: 
+    <View style={{paddingLeft: 10}}>
+      <Text onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>Menu</Text>
+    </View>
+  })
+}
+
+/*MainDrawerNavigator.navigationOptions = {
+  title: 'Basket',
+  headerLeft: <Text onPress={() => 
+    navigation.navigate('DrawerOpen')}>Menu</Text>
+}*/
+
+export default createStackNavigator({
+  Home: {
+    screen: MainDrawerNavigator
+  },
+  CreateItem: {
+    screen: CreateItemScreen,
   },
   AddItems: {
     screen: AddItemsToBasketScreen
   },
-})
-
-const addItemStackNavigator = createStackNavigator({
-  AddScreen: {
-    screen: AddItemScreen
+  CreateItem: {
+    screen: CreateItemScreen,
   },
-})
-
-const removeItemStackNavigator = createStackNavigator({
-  RemoveScreen: {
-    screen: RemoveItemsScreen
+  DeleteItem: {
+    screen: DeleteItemScreen
   },
-})
-
-const addGroupStackNavigator = createStackNavigator({
-  AddGroup: {
-    screen: AddGroupsScreen
+  CreateGroup: {
+    screen: CreateGroupScreen
+  },
+  DeleteGroup: {
+    screen: DeleteGroupScreen
   }
-})
-
-const removeGroupStackNavigator = createStackNavigator({
-  RemoveGroup: {
-    screen: RemoveGroupsScreen
-  }
-})
-
-export default createDrawerNavigator({
-  Home: {
-    screen: homeStackNavigator,
-  },
-  AddItem: {
-    screen: addItemStackNavigator,
-    navigationOptions: {
-      title: 'Add item',
-    }
-  },
-  RemoveItem: {
-    screen: removeItemStackNavigator,
-    navigationOptions: {
-      title: 'Remove item',
-    }
-  },
-  AddGroup: {
-    screen: addGroupStackNavigator,
-    navigationOptions: {
-      title: 'Add group',
-    }
-  },
-  RemoveGroup: {
-    screen: removeGroupStackNavigator,
-    navigationOptions: {
-      title: 'Remove group',
-    }
-  }
+},
+{
+  initialRouteName: 'Home',
+  headerMode: 'screen',
 })

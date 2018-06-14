@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import ItemGroupList from './itemGroupList'
 
-export default class ItemRemover extends React.Component {
+export default class ItemDelete extends React.Component {
   render() {
     return(
       <View>

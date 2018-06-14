@@ -1,15 +1,15 @@
 import { connect } from 'react-redux'
 import { removeItem } from '../actions'
 import { StyleSheet, Alert } from 'react-native'
-import ItemRemover from '../components/itemRemover'
+import ItemDelete from '../components/itemDelete'
 
 itemPressed = (dispatch, pressedEventdata) => {
   Alert.alert(
     'Remove item',
     'Are you sure you want to delete ' + pressedEventdata.name,
     [
-      {text: 'Yes!', onPress: () => { dispatch(removeItem(pressedEventdata.id)) }},
       {text: 'No!', onPress: () => {}},
+      {text: 'Yes!', onPress: () => { dispatch(removeItem(pressedEventdata.id)) }},
     ],
     { cancelable: true }
   )
@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => ({
   itemPressed: pressedEventdata => itemPressed(dispatch, pressedEventdata)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ItemRemover)
+export default connect(mapStateToProps, mapDispatchToProps)(ItemDelete)
 
 const styles = StyleSheet.create({
   defaultContainer: {

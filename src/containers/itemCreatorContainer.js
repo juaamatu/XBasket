@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { addNewItem } from '../actions/index'
-import NewItemAdder from '../components/newItemAdder'
+import ItemCreator from '../components/itemCreator'
 
 const itemPressed = (dispatch, name, id, groupId) => {
   dispatch(addNewItem(name, id, groupId))
@@ -15,4 +15,4 @@ const mapDispatchToProps = dispatch => ({
   itemPressed: (name, id, groupId) => itemPressed(dispatch, name, id, groupId)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewItemAdder)
+export default connect(mapStateToProps, mapDispatchToProps)(ItemCreator)

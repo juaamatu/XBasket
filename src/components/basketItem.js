@@ -9,7 +9,8 @@ export default class Item extends React.Component {
 
   render() {
     return (
-      <View style={styles.containerSelected}>
+      <View style={[styles.container, this.props.done 
+        ? styles.containerDone : styles.containerNotDone]}>
         <TouchableOpacity onPress={ id => this.itemPressed(this.props.id) }>
           <View>
             <Text 
@@ -37,4 +38,9 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 10,
   },
+  containerDone: {
+    backgroundColor: '#cccccc'
+  },
+  containerNotDone: {
+  }
 })

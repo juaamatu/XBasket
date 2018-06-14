@@ -38,7 +38,7 @@ export default class GroupAdder extends React.Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <View style={styles.container}>
+        <View style={styles.textInputContainer}>
           <TextInput 
           style={[styles.textInput, this.state.nameInvalid ? {color: 'red'} : {color: 'black'}]}
           underlineColorAndroid={'transparent'}
@@ -64,6 +64,12 @@ const styles = StyleSheet.create({
   mainContainer: {
     justifyContent: 'center',
     alignSelf: 'center',
+  },
+  textInputContainer: {
+    marginTop: 30,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: 'black',
   },
   container: {
     paddingTop: 30

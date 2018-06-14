@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, ScrollView, Text, TextInput, FlatList, TouchableOpacity, Button, StyleSheet } from 'react-native'
 
-export default class NewItemAdder extends React.Component {
+export default class ItemCreator extends React.Component {
   constructor(props) {
     super(props)
     this.state = { selectedGroupId: 1, showAddedText: false, name: 'Item name', nameInvalid: false }
@@ -35,7 +35,7 @@ export default class NewItemAdder extends React.Component {
   render() {
     return (
       <ScrollView contentContainerStyle={styles.mainContainer}>
-        <View style={styles.container}>
+        <View style={styles.textInputContainer}>
           <TextInput 
             style={[styles.textInput, this.state.nameInvalid ? {color: 'red'} : {color: 'black'}]} 
             defaultValue={this.state.nameInvalid ? 'Invalid name' : this.state.name}
@@ -79,6 +79,12 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingTop: 30
+  },
+  textInputContainer: {
+    marginTop: 30,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: 'black',
   },
   listItemContainer: {
     backgroundColor: 'gray'

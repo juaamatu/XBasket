@@ -12,8 +12,8 @@ export default class Basket extends React.Component {
       'Clear basket',
       'Are you sure you want to clear your basket?',
       [
-        {text: 'Yes!', onPress: () => { this.props.clearPressed() }},
         {text: 'No!', onPress: () => {}},
+        {text: 'Yes!', onPress: () => { this.props.clearPressed() }},
       ],
       { cancelable: true }
     )
