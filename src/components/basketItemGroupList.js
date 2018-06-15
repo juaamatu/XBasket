@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, FlatList, Text, StyleSheet } from 'react-native'
 import { filter, find } from 'lodash'
-import BasketItemList from './basketItemList'
+import BasketItemGroup from './basketItemGroup'
 
 export default class ItemGroupList extends React.Component {
   render() {
@@ -27,10 +27,8 @@ export default class ItemGroupList extends React.Component {
           keyExtractor={item => item.id.toString()}
           renderItem={({item}) => (
             <View>
-              <View style={styles.groupContainer}>
-                <Text style={styles.groupText}>{item.name}</Text>
-              </View>
-              <BasketItemList 
+              <BasketItemGroup
+                name={item.name}
                 items={item.items}
                 basket={this.props.basket}
                 itemPressed={this.props.itemPressed}

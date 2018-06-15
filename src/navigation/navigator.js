@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 import { createStackNavigator, createDrawerNavigator, DrawerActions } from 'react-navigation'
+import { Ionicons } from '@expo/vector-icons'
 import DrawerContent from './drawerContent'
 import ItemAdderContainer from '../containers/itemAdderContainer'
 import BasketContainer from '../containers/basketContainer'
@@ -102,16 +103,12 @@ class MainDrawerNavigator extends DrawerNavigator {
     title: 'Basket',
     headerLeft: 
     <View style={{paddingLeft: 10}}>
-      <Text onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>Menu</Text>
+        <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
+          <Ionicons name='md-menu' size={40} />
+        </TouchableOpacity>
     </View>
   })
 }
-
-/*MainDrawerNavigator.navigationOptions = {
-  title: 'Basket',
-  headerLeft: <Text onPress={() => 
-    navigation.navigate('DrawerOpen')}>Menu</Text>
-}*/
 
 export default createStackNavigator({
   Home: {

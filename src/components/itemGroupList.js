@@ -1,9 +1,14 @@
 import React from 'react'
-import { View, FlatList, Text, StyleSheet } from 'react-native'
+import { View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { filter } from 'lodash'
 import ItemList from './itemList'
+import ItemGroup from './itemGroup'
 
 export default class ItemGroupList extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     let data = this.props.groups.map(group => {
       return {name: group.name, id: group.id, items: filter(this.props.items, item => { 
@@ -14,30 +19,26 @@ export default class ItemGroupList extends React.Component {
     }).sort((a, b) => {
       return isNaN(a.name) === isNaN(b.name) ? a.name.localeCompare(b.name) : (isNaN(a.name) ? -1 : 1);
     })
-    //console.log(isItemToggled)
+
     return(
       <View>
         <FlatList
           data={data}
           keyExtractor={item => item.id.toString()}
           renderItem={({item}) => (
-            <View>
-              <View style={styles.groupContainer}>
-                <Text style={styles.groupText}>{item.name}</Text>
-              </View>
-              <ItemList 
-                items={item.items}
-                groupId={item.id}
-                basket={this.props.basket}
-                itemPressed={this.props.itemPressed}
-                toggleableItems={this.props.toggleableItems}
-                isItemToggled={this.props.isItemToggled}
-                itemContainerStyle={this.props.itemContainerStyle}
-                toggledContainerStyle={this.props.toggledContainerStyle}
-                itemTextStyle={this.props.itemTextStyle}
-                toggledTextStyle={this.props.toggledTextStyle}
-              />
-            </View>
+            <ItemGroup 
+              name={item.name}
+              items={item.items}
+              groupId={item.id}
+              basket={this.props.basket}
+              itemPressed={this.props.itemPressed}
+              toggleableItems={this.props.toggleableItems}
+              isItemToggled={this.props.isItemToggled}
+              itemContainerStyle={this.props.itemContainerStyle}
+              toggledContainerStyle={this.props.toggledContainerStyle}
+              itemTextStyle={this.props.itemTextStyle}
+              toggledTextStyle={this.props.toggledTextStyle}
+            />            
           )}
         />
       </View>
