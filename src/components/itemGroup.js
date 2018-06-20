@@ -51,9 +51,19 @@ export default class ItemGroup extends React.Component {
     return (
       <View>
         <View style={styles.groupContainer}>
-          <TouchableOpacity onPress={() => { this.toggleOpened() }}>
-            <Text style={styles.groupText}>{this.props.name}</Text>
-          </TouchableOpacity>
+          <View style={styles.groupTextContainer}>
+            <TouchableOpacity onPress={() => { this.toggleOpened() }}>
+              <Text style={styles.groupText}>{this.props.name}</Text>
+            </TouchableOpacity>
+          </View>
+          {
+          this.props.canCreateItems &&
+          <View style={styles.groupIconContainer}>
+            <TouchableOpacity onPress={() => this.props.createItemPressed(this.props.groupId)}>
+              <Ionicons name='md-add' size={40} />
+            </TouchableOpacity>
+          </View>
+          }
         </View>
         {this.state.opened ? itemListOpened : itemListClosed}
     </View>
@@ -63,7 +73,16 @@ export default class ItemGroup extends React.Component {
 
 const styles = StyleSheet.create({
   groupContainer: {
-    backgroundColor: '#80aaff'
+    backgroundColor: '#80aaff',
+    flexDirection: 'row'
+  },
+  groupTextContainer: {
+    flex: 5,
+  },
+  groupIconContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
+    paddingRight: 30
   },
   groupText: {
     fontSize: 35,

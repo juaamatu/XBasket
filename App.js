@@ -4,13 +4,16 @@ import { Provider } from 'react-redux'
 import { store, persistor  } from './src/store'
 import { PersistGate } from 'redux-persist/integration/react'
 import Navigator from './src/navigation/navigator'
+import { Root } from 'native-base'
 
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Navigator />
+          <Root>
+            <Navigator />
+          </Root>
         </PersistGate>
       </Provider>
     );

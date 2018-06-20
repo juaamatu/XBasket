@@ -9,16 +9,20 @@ export default class ItemGroupList extends React.Component {
     super(props)
   }
 
+  static defaultProps = {
+    itemFilter: item => true
+  }
+
   render() {
     let data = this.props.groups.map(group => {
       return {name: group.name, id: group.id, items: filter(this.props.items, item => { 
         return item.groupId === group.id
-      }).sort((a, b) => {
-        return isNaN(a.name) === isNaN(b.name) ? a.name.localeCompare(b.name) : (isNaN(a.name) ? -1 : 1);
+      }).filter(item => this.props.itemFilter(item)).sort((a, b) => {
+        return isNaN(a.name) === isNaN(b.name) ? a.name.localeCompare(b.name) : (isNaN(a.name) ? -1 : 1)
       })}
     }).sort((a, b) => {
-      return isNaN(a.name) === isNaN(b.name) ? a.name.localeCompare(b.name) : (isNaN(a.name) ? -1 : 1);
-    })
+      return isNaN(a.name) === isNaN(b.name) ? a.name.localeCompare(b.name) : (isNaN(a.name) ? -1 : 1)
+    }).filter(group => group.items.length > 0)
 
     return(
       <View>
@@ -38,6 +42,8 @@ export default class ItemGroupList extends React.Component {
               toggledContainerStyle={this.props.toggledContainerStyle}
               itemTextStyle={this.props.itemTextStyle}
               toggledTextStyle={this.props.toggledTextStyle}
+              canCreateItems={this.props.canCreateItems}
+              createItemPressed={this.props.createItemPressed}
             />            
           )}
         />

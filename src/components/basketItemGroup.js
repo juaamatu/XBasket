@@ -32,7 +32,7 @@ export default class BasketItemGroup extends React.Component {
     let itemListClosed = (
       <View style={childrenToggled ? this.props.toggledContainerStyle : this.props.itemContainerStyle}>
         <TouchableOpacity onPress={() => { this.toggleOpened() }}>
-          <Text style={styles.closedText}>...</Text>
+          <Text style={[styles.closedText, done ? { backgroundColor: '#cccccc' } : {}]}>...</Text>
         </TouchableOpacity>
       </View>
     )

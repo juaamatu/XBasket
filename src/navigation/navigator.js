@@ -31,7 +31,7 @@ class AddItemsToBasketScreen extends React.Component {
 
   render() {
     return (
-      <ItemAdderContainer />
+      <ItemAdderContainer navigation={this.props.navigation}/>
     )
   }
 }
@@ -42,8 +42,14 @@ class CreateItemScreen extends React.Component {
   }
 
   render() {
+
+    const { navigation } = this.props;
+    const selectedGroupId = navigation.getParam('selectedGroupId', 1);
+
     return (
-      <ItemCreatorContainer />
+      <ItemCreatorContainer 
+        selectedGroupId={selectedGroupId} 
+        navigation={this.props.navigation}/>
     )
   }
 }

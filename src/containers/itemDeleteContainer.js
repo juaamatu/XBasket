@@ -3,6 +3,10 @@ import { removeItem } from '../actions'
 import { StyleSheet, Alert } from 'react-native'
 import ItemDelete from '../components/itemDelete'
 
+itemFilter = (item, searchString) => {
+  return item.search(searchString) === 0
+}
+
 itemPressed = (dispatch, pressedEventdata) => {
   Alert.alert(
     'Remove item',
@@ -29,6 +33,7 @@ const mapStateToProps = state => ({
   toggledContainerStyle: styles.toggledContainer,
   itemTextStyle: styles.defaultText,
   toggledTextStyle: styles.defaultText,
+  itemFilter: (item, searchString) => itemFilter(item, searchString)
 })
 
 const mapDispatchToProps = dispatch => ({

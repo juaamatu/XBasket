@@ -1,81 +1,97 @@
 import React from 'react'
-import { View, TextInput, Button, StyleSheet } from 'react-native'
+import { Font, AppLoading } from "expo";
+import { View } from 'react-native'
+import { Container, Content, Button, Form, Item, Input, Text, Toast, Icon } from 'native-base'
 
 export default class GroupAdder extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { name: 'Group name', nameInvalid: false, showAddedText: false }
+    this.state = { groupName: '', nameStatus: 'empty', loading: true }
+  }
+
+  async componentWillMount() {
+    await Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+    });
+    this.setState({ loading: false });
   }
 
   changeText = text => {
-    this.setState(() => ({ name: text, nameInvalid: false }))
-  }
-
-  textInputFocus = () => {
-    this.setState(() => ({ nameInvalid: false }))
-    if (this.textInput.value != 'Invalid name' && this.textInput.value != 'Group name') {
-      this.textInput.clear()
-    }
+    this.setState(() => ({ groupName: text }))
   }
 
   addPressed = () => {
-    let name = this.state.name
+    let name = this.state.groupName
+    if (name.length === 0) {
+      Toast.show({
+        text: 'Please give group name!',
+        buttonText: 'Okay'
+      })
+      return
+    }
     for (let i = 0; i < this.props.groups.length; i++) {
       if (this.props.groups[i].name.toUpperCase() === name.toUpperCase()) {
-        this.setState(() => ({ nameInvalid: true }))
+        Toast.show({
+          text: 'Group already exists!',
+          buttonText: 'Okay'
+        })
         return
       }
     }
 
-    this.setState(() => ({ showAddedText: true }))
-    setTimeout(() => {
-      this.setState(() => ({ showAddedText: false }))
-    }, 2000)
-
     this.props.groupAdded(name)
+    this.setState({ nameStatus: 'error' })
+    Toast.show({
+      text: name + ' added!',
+      buttonText: 'Okay'
+    })
+  }
+
+  endEditing = () => {
+    let name = this.state.groupName
+    let nameStatus = 'success'
+    if (name.length === 0)
+      nameStatus = 'empty'
+    for (let i = 0; i < this.props.groups.length; i++) {
+      if (this.props.groups[i].name.toUpperCase() === name.toUpperCase()) {
+        nameStatus = 'error'
+      }
+    }
+    this.setState({nameStatus: nameStatus})
   }
 
   render() {
-    return (
-      <View style={styles.mainContainer}>
-        <View style={styles.textInputContainer}>
-          <TextInput 
-          style={[styles.textInput, this.state.nameInvalid ? {color: 'red'} : {color: 'black'}]}
-          underlineColorAndroid={'transparent'}
-          ref={ ref => { this.textInput = ref } }
-          defaultValue={this.state.nameInvalid ? 'Invalid name' : this.state.name}
-          onChangeText={(text) => {this.changeText(text)}}
-          onFocus={() => this.textInputFocus()}
-          />
-        </View>
-        <View style={styles.container}>
-          <Button 
-            title={this.state.showAddedText ? 'Group added!' : 'Add group'}
+    return this.state.loading ? <View><AppLoading /></View> :  
+    (
+      <Container>
+        <Content>
+          <View style={{ paddingTop: 30 }}>
+            <Form>
+              <Item 
+                last 
+                error={this.state.nameStatus === 'error'}
+                success={this.state.nameStatus === 'success'}
+                >
+                <Input 
+                  style={{fontSize: 20}}
+                  placeholder='Group name'
+                  onChangeText={(text) => {this.changeText(text)}}
+                  onEndEditing={() => this.endEditing()}/>
+                {this.state.nameStatus === 'error' && <Icon name='close-circle' /> }
+                {this.state.nameStatus === 'success' && <Icon name='checkmark-circle' /> }
+              </Item>
+            </Form>
+          </View>
+          <View style={{ paddingTop: 30, alignSelf: 'center' }}>
+            <Button
             onPress={() => this.addPressed()}
-            disabled={this.state.showAddedText}
-          />
-        </View>
-      </View>
+            danger={this.state.nameStatus === 'error' || this.state.nameStatus === 'empty'}>
+              <Text>Add group!</Text>
+            </Button>
+          </View>
+        </Content>
+      </Container>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    justifyContent: 'center',
-    alignSelf: 'center',
-  },
-  textInputContainer: {
-    marginTop: 30,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: 'black',
-  },
-  container: {
-    paddingTop: 30
-  },
-  textInput: {
-    textAlign: 'center',
-    fontSize: 20
-  }
-})
