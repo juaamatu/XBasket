@@ -62,3 +62,12 @@ export const deleteGroup = id => {
     id: id
   }
 }
+
+export const ADD_FAVOURITE = 'ADD_FAVOURITE'
+export const addFavourite = (name, items) => {
+  return {
+    type: ADD_FAVOURITE,
+    name: name,
+    items: items
+  }
+}
